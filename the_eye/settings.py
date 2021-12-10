@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'event_tracker.middleware.shared_secret_authenticator.SharedSecretAuthenticatorMiddleware'
 ]
 
 ROOT_URLCONF = 'the_eye.urls'
@@ -171,3 +172,7 @@ LOGGING = {
         },
     }
 }
+
+EVENT_TRACKER_SHARED_SECRETS = [
+    os.environ['EVENT_TRACKER_SHARED_SECRET'],
+]
