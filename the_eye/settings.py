@@ -33,7 +33,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -141,17 +140,17 @@ LOGGING = {
         }
     },
     'handlers': {
-        'console':{
-            'level':'DEBUG',
-            'class':'logging.StreamHandler'
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler'
         },
         'default': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
-            'filename': os.environ.get('THE_EYE_LOG_FILENAME', 'local.log'), # Path should exist
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.environ.get('THE_EYE_LOG_FILENAME', 'local.log'),  # Path should exist
             'maxBytes': 1024 * 1024 * 5,  # 5 MB
             'backupCount': 5,
-            'formatter':'standard',
+            'formatter': 'standard',
         }
     },
     'loggers': {
