@@ -124,3 +124,49 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler'
+        },
+        'default': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': os.environ.get('THE_EYE_LOG_FILENAME', 'local.log'), # Path should exist
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 5,
+            'formatter':'standard',
+        }
+    },
+    'loggers': {
+        'django.db': {
+            'handlers': ['default'],
+            'level': os.environ.get('THE_EYE_DB_LOGGING_LEVEL', 'ERROR'),
+            'propagate': False,
+        },
+        '': {
+            'handlers': ['default'],
+            'level': os.environ.get('THE_EYE_LOGGING_LEVEL', 'INFO'),
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['default'],
+            'level': os.environ.get('THE_EYE_REQUEST_LOGGING_LEVEL', 'ERROR'),
+            'propagate': False,
+        },
+    }
+}
